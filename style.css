@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   font-family: "Tahoma", "MS Sans Serif", sans-serif;
   font-size: 13px;
-  background: #808080; /* Серый фон рабочего стола */
+  background: #808080;
   overflow: hidden;
 }
 
@@ -49,7 +49,6 @@ html, body {
   align-items: center;
   flex-shrink: 0;
 }
-
 .home-btn {
   font-family: "Tahoma", sans-serif;
   font-size: 13px;
@@ -73,7 +72,7 @@ html, body {
   display: flex;
   flex: 1;
   overflow: hidden;
-  background: #d4d0c8; /* Виден в зазорах между колонками */
+  background: #d4d0c8;
   padding: 6px;
   gap: 6px;
 }
@@ -92,7 +91,6 @@ html, body {
   flex-direction: column;
   gap: 2px;
 }
-
 .sidebar-spacer {
   height: 10px;
 }
@@ -107,7 +105,7 @@ html, body {
   border-color: #808080 #ffffff #ffffff #808080;
   color: #000;
   box-sizing: border-box;
-  position: relative; /* Для центрирования загрузки */
+  position: relative;
 }
 
 /* ===== ТЕКСТ И ЗАГОЛОВКИ ===== */
@@ -124,15 +122,12 @@ html, body {
   padding-bottom: 3px;
   margin-top: 20px;
 }
-.content-area p { 
-  line-height: 1.5; 
-  margin: 8px 0; 
-}
+.content-area p { line-height: 1.5; margin: 8px 0; }
 .content-area a { color: #0000ee; }
 .content-area a:visited { color: #551a8b; }
 .content-area a:hover { color: #ff0000; }
 
-/* ===== РАЗНОЕ В КОНТЕНТЕ ===== */
+/* ===== БЕГУЩАЯ СТРОКА ===== */
 .marquee-box {
   background: #000;
   color: #00ff00;
@@ -145,6 +140,7 @@ html, body {
 }
 .marquee-box marquee { font-size: 13px; }
 
+/* ===== СЧЁТЧИК ===== */
 .counter {
   display: inline-flex;
   gap: 2px;
@@ -175,7 +171,7 @@ hr {
   margin: 15px 0;
 }
 
-/* ===== КНОПКИ В КОНТЕНТЕ (если нужны внутри страниц) ===== */
+/* ===== КНОПКИ В КОНТЕНТЕ ===== */
 .btn90 {
   font-family: "Tahoma", sans-serif;
   font-size: 12px;
@@ -208,6 +204,14 @@ hr {
   z-index: 100;
 }
 
+/* Контейнер, который прижимается вправо */
+.taskbar-right {
+  margin-left: auto; /* Сдвигает всё содержимое вправо */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Расстояние между кнопками и часами */
+}
+
 .resource-btn {
   display: flex;
   align-items: center;
@@ -224,23 +228,46 @@ hr {
   text-decoration: none;
   cursor: pointer;
 }
-
 .resource-btn:active {
   border-color: #808080 #ffffff #ffffff #808080;
 }
-
-/* Фикс для цветных кнопок в таскбаре */
 .resource-btn.custom-bg {
-  /* Текст делаем жирным и с небольшой тенью, чтобы читался на любом фоне */
   text-shadow: 0 0 1px rgba(0,0,0,0.3); 
 }
 .resource-btn.custom-bg:active {
-  /* При нажатии фон остается тем же, меняются только рамки */
   background-color: var(--btn-bg) !important;
 }
 
+/* Кнопки управления (звук/уведомления) */
+.taskbar-controls {
+  display: flex;
+  gap: 4px;
+  margin: 0; /* Убрали лишние отступы */
+}
+.ctrl-btn {
+  width: 24px;
+  height: 22px;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ctrl-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+.ctrl-btn.disabled {
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: #c0c0c0;
+  opacity: 0.6;
+}
+
 .clock {
-  margin-left: auto;
+  /* Убрали margin-left: auto, так как теперь его задает .taskbar-right */
   background: #c0c0c0;
   border: 2px inset #ffffff;
   padding: 2px 8px;
@@ -261,7 +288,6 @@ hr {
   align-items: center;
   justify-content: center;
 }
-
 .loading-text {
   font-family: "Tahoma", sans-serif;
   font-size: 14px;
@@ -269,11 +295,10 @@ hr {
   color: #000;
   margin-bottom: 6px;
   padding-left: 0;
-  width: 350px; /* Ширина совпадает с полоской */
+  width: 350px;
   box-sizing: border-box;
   text-align: left;
 }
-
 .loading-blocks {
   display: flex;
   gap: 2px;
@@ -284,16 +309,14 @@ hr {
   width: 350px; 
   box-sizing: border-box;
 }
-
 .loading-blocks .block {
   flex: 1; 
   height: 16px;
   background: #c0c0c0; 
-  transition: none; /* Резкое переключение */
+  transition: none;
 }
-
 .loading-blocks .block.active {
-  background: #006400; /* Темно-зеленый */
+  background: #006400;
 }
 
 /* ========================================= */
@@ -303,8 +326,6 @@ hr {
   display: flex;
   flex-direction: column;
 }
-
-/* Кнопки со стрелочкой */
 .sidebar .btn90.has-children {
   position: relative;
   padding-right: 20px;
@@ -320,10 +341,8 @@ hr {
   transition: transform 0.1s ease;
 }
 .sidebar .btn90.has-children.open::after {
-  transform: translateY(-50%) rotate(90deg); /* Поворот при открытии */
+  transform: translateY(-50%) rotate(90deg);
 }
-
-/* Контейнер для вложенных элементов */
 .submenu {
   display: none;
   flex-direction: column;
@@ -333,27 +352,266 @@ hr {
   border-left: 1px dotted #808080;
   padding-left: 6px;
 }
-
 .submenu.open {
   display: flex;
 }
-
 .submenu .btn90 {
   font-size: 11px;
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Кастомный скроллбар для меню */
-.sidebar::-webkit-scrollbar {
-  width: 16px;
-}
-.sidebar::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-left: 1px solid #c0c0c0;
-}
+/* Кастомный скроллбар */
+.sidebar::-webkit-scrollbar { width: 16px; }
+.sidebar::-webkit-scrollbar-track { background: #f0f0f0; border-left: 1px solid #c0c0c0; }
 .sidebar::-webkit-scrollbar-thumb {
   background: #d4d0c8;
   border: 1px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* ========================================= */
+/* СТИЛИ ДЛЯ ВСПЛЫВАЮЩИХ УВЕДОМЛЕНИЙ */
+/* ========================================= */
+#notification-container {
+  position: fixed;
+  bottom: 35px;
+  right: 10px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.notif-window {
+  width: 280px;
+  background: #ece9d8;
+  border: 2px solid;
+  border-color: #ffffff #404040 #404040 #ffffff;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.3s forwards;
+  pointer-events: auto;
+}
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.notif-window.hide {
+  animation: slideDown 0.3s forwards;
+}
+@keyframes slideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+.notif-title-bar {
+  background: linear-gradient(180deg, #0a5fd6 0%, #3d8bfd 8%, #1e63c9 40%, #0d4fb0 100%);
+  color: #fff;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-shadow: 1px 1px 1px #000;
+}
+.notif-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px;
+}
+.notif-close {
+  width: 16px;
+  height: 14px;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  color: #000;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.notif-close:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+.notif-body {
+  padding: 10px;
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+  color: #000;
+  background: #ffffff;
+  margin: 3px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+.notif-body a {
+  color: #0000ee;
+  text-decoration: underline;
+}
+
+/* ========================================= */
+/* СТИЛИ ДЛЯ НОВОСТНЫХ БЛОКОВ (СЕТКА) */
+/* ========================================= */
+
+.news-grid {
+  display: grid;
+  /* Сетка: карточки будут переноситься, минимальная ширина 220px */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  background: #ece9d8; /* Светло-серый фон, как у панелей Windows */
+  
+  /* Классическая выпуклая рамка */
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Эффект нажатия при клике */
+.news-card:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: #d4d0c8;
+}
+
+.news-img-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Пропорции картинки */
+  overflow: hidden;
+  margin-bottom: 10px;
+  
+  /* Вдавленная рамка для картинки */
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: #ffffff;
+}
+
+.news-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.news-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Чтобы дата всегда была внизу */
+}
+
+/* Теги (категории) */
+.news-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.news-tag {
+  background: #d4d0c8;
+  color: #000;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Заголовок новости */
+.news-title {
+  font-family: "Times New Roman", serif; /* Как заголовки на сайте */
+  font-size: 16px;
+  font-weight: bold;
+  color: #000080; /* Темно-синий, классический */
+  margin: 0 0 5px 0;
+  line-height: 1.2;
+}
+
+/* Описание */
+.news-desc {
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #333;
+  margin: 0 0 15px 0;
+  flex-grow: 1;
+}
+
+/* Дата */
+.news-date {
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  color: #808080;
+  border-top: 1px dotted #808080; /* Точечная линия, как в старых меню */
+  padding-top: 8px;
+  margin-top: auto;
+}
+
+
+/* ========================================= */
+/* ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (HOVER) */
+/* ========================================= */
+
+/* Верхние кнопки (ГЛАВНАЯ, ЧАТИК) */
+.home-btn:hover {
+  background: #e4e0d8; /* Чуть светлее */
+  color: #0000ee;      /* Текст становится синим (как ссылка) */
+}
+
+/* Кнопки в левом меню */
+.sidebar .btn90:hover {
+  background: #e4e0d8;
+}
+
+/* Кнопки в нижней панели (VK, и т.д.) */
+.resource-btn:hover {
+  background: #e4e0d8;
+  /* Если у кнопки есть кастомный фон, мы чуть его осветляем */
+  filter: brightness(1.1); 
+}
+
+/* Кнопки управления (Звук, Уведомления) */
+.ctrl-btn:hover {
+  background: #e4e0d8;
+}
+
+/* Карточки новостей на главной странице */
+.news-card:hover {
+  background: #e4e0d8;
+  /* Легкое свечение рамки */
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #a0a0a0;
+}
+.news-card:hover .news-title {
+  color: #0000ee; /* Заголовок становится синим */
+  text-decoration: underline;
+}
+
+/* Ссылки внутри контента */
+.content-area a:hover {
+  background: #ffffcc; /* Легкая желтая подсветка, как выделение текста */
+}
+
+/* Кнопки внутри самого контента (например, "Написать мне") */
+.btn90:hover {
+  background: #e4e0d8;
 }

@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Мой Домашний Сайт :: Microsoft Internet Explorer</title>
+<title>Мой Домашний Сайт — NFlike</title>
+
+<link rel="icon" href="favicon.png" type="image/png">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,8 +18,9 @@
     </div>
   </div>
 
-  <div class="top-nav-bar">
+<div class="top-nav-bar">
     <a href="#" class="home-btn" id="home-btn">ГЛАВНАЯ</a>
+    <a href="#" class="home-btn" id="chat-btn" style="margin-left: 5px;">ЧАТИК</a>
   </div>
 
   <div class="main-content">
@@ -43,9 +47,25 @@
   </div>
 </div>
 
+<!-- ===== НИЖНЯЯ ПАНЕЛЬ ===== -->
 <div class="taskbar">
-  <div class="clock" id="system-clock">🕐 00:00</div>
+  <!-- Кнопки ресурсов добавляются сюда скриптом -->
+  
+  <!-- Блок, который прижмется вправо -->
+  <div class="taskbar-right">
+    <!-- Кнопки управления звуком и уведомлениями -->
+    <div class="taskbar-controls" id="taskbar-controls">
+      <button class="ctrl-btn" id="btn-sound" title="Вкл/Выкл звук">🔊</button>
+      <button class="ctrl-btn" id="btn-notif" title="Вкл/Выкл уведомления">🔕</button>
+    </div>
+
+    <!-- Часы -->
+    <div class="clock" id="system-clock">🕐 00:00</div>
+  </div>
 </div>
+
+<!-- Контейнер для всплывающих окон -->
+<div id="notification-container"></div>
 
 <script src="script.js"></script>
 </body>

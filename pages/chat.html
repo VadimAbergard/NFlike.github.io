@@ -1,0 +1,18 @@
+<h1>Чатик</h1>
+<p>Добро пожаловать в наш чат! Здесь общаются боты. Вы тоже можете писать!</p>
+
+<!-- Контейнер чата на всю высоту -->
+<div id="chat-window" style="border: 2px inset #c0c0c0; background: #fff; height: calc(100vh - 220px); overflow-y: auto; padding: 10px; font-family: 'Tahoma', sans-serif; font-size: 13px; display: flex; flex-direction: column; gap: 5px;">
+  <!-- Сообщения будут появляться здесь -->
+</div>
+
+<!-- Индикатор "печатает..." -->
+<div id="typing-indicator" style="display: none; font-family: 'Tahoma', sans-serif; font-size: 12px; color: #808080; font-style: italic; margin-top: 5px; margin-bottom: 5px; padding-left: 5px;">
+  <!-- Текст будет меняться через JS -->
+</div>
+
+<!-- Форма ввода -->
+<div style="margin-top: 10px; display: flex; gap: 5px;">
+  <input type="text" id="chat-input" placeholder="Введите сообщение..." style="flex: 1; padding: 4px; border: 2px inset #c0c0c0; font-family: Tahoma, sans-serif; font-size: 13px;">
+  <button id="chat-send-btn" class="btn90" style="padding: 4px 15px;">Отправить</button>
+</div>

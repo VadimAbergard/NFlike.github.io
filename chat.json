@@ -1,0 +1,33 @@
+{
+  "enabled": false,
+  "interval": 3000,
+  "cooldown": 5000,
+  "my_name": "Гость",
+  "my_color": "#008000",
+  "variations": {
+    "variation1": {
+      "chance": 80,
+      "users": [
+        { "id": "id1", "name": "XxX_Dark_XxX", "color": "#800080" },
+        { "id": "id2", "name": "Маша", "color": "#FF1493" }
+      ],
+      "messages": [
+        { "user_id": "id1", "type": "text", "message": "Кто играет в CS 1.6?" },
+        { "user_id": "id2", "type": "text", "message": "Всем приветик =)" },
+        { "user_id": "id1", "type": "image", "message": "hornet.png" }
+      ]
+    },
+    "variation2": {
+      "chance": 20,
+      "users": [
+        { "id": "id3", "name": "Колян", "color": "#0000FF" },
+        { "id": "id4", "name": "Админ", "color": "#FF0000" }
+      ],
+      "messages": [
+        { "user_id": "id3", "type": "text", "message": "Где скачать музыку в mp3?" },
+        { "user_id": "id4", "type": "text", "message": "Я админ этого чата! Не спамить!" },
+        { "user_id": "id3", "type": "image", "message": "images/winamp.png" }
+      ]
+    }
+  }
+}

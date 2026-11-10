@@ -1,0 +1,30 @@
+{
+  "enabled": false,
+  "interval": 1000,
+  "notifications": [
+    [ 
+      {
+        "sound": "sound/notification.wav",
+        "title": "Привет из 2001!",
+        "file": "notifications/notif1_1.html"
+      },
+      {
+        "sound": "sound/notification.wav",
+        "title": "Привет из будущего!",
+        "file": "notifications/notif1_2.html"
+      }
+    ],
+    [ 
+      {
+        "sound": "sound/notification.wav",
+        "title": "Обновление",
+        "file": "notifications/notif2_1.html"
+      },
+      {
+        "sound": "sound/msn.wav",
+        "title": "ICQ",
+        "file": "notifications/notif2_2.html"
+      }
+    ]
+  ]
+}
