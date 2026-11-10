@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мой Домашний Сайт :: Microsoft Internet Explorer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="window">
+  <div class="title-bar">
+    <div class="title-text">
+      <span>🌐</span>
+      <span>Мой Домашний Сайт — NFlike</span>
+    </div>
+  </div>
+
+  <div class="top-nav-bar">
+    <a href="#" class="home-btn" id="home-btn">ГЛАВНАЯ</a>
+  </div>
+
+  <div class="main-content">
+    <!-- Сюда скрипт вставит кнопки меню -->
+    <div class="sidebar"></div>
+
+    <!-- Правая колонка -->
+    <div class="content-area" id="content-wrapper">
+      
+      <!-- Блок с анимацией загрузки -->
+      <div class="loading-container" id="loading-bar">
+        <div class="loading-text">Загрузка:</div>
+        <div class="loading-blocks" id="loading-blocks-container">
+          <!-- Квадратики создаются через JS -->
+        </div>
+      </div>
+
+      <!-- Сюда будет загружаться сам контент -->
+      <div id="main-content">
+        <p>Загрузка...</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="taskbar">
+  <div class="clock" id="system-clock">🕐 00:00</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

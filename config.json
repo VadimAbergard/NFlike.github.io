@@ -1,0 +1,32 @@
+{
+  "sidebarLinks": [
+    { "title": "> Главная", "content": "pages/home.html" },
+    { 
+      "title": "> дневник разработки", 
+      "children": [
+        { "title": "Hornet Adventure (⭐обновлено)", "content": "pages/hobbies.html" },
+        { "title": "Produce Box Factory", "content": "pages/music.html" }
+      ]
+    },
+    { 
+      "title": "> Творчество", 
+      "children": [
+        { "title": "Стихи", "content": "pages/poems.html" },
+        { "title": "Рассказы", "content": "pages/stories.html" },
+        { 
+          "title": "Рисунки", 
+          "children": [
+            { "title": "Карандашом", "content": "pages/pencil.html" },
+            { "title": "В Paint", "content": "pages/paint.html" }
+          ]
+        }
+      ]
+    },
+    { "title": "spacer" },
+    { "title": "> Гостевая книга", "content": "pages/guestbook.html" }
+  ],
+  "taskbarLinks": [
+    { "title": "VK", "url": "https://vk.com/", "textColor": "#ffffff", "bgColor": "#2787F5" },
+    { "title": "itch.io", "url": "https://itch.io/", "textColor": "#ffffff", "bgColor": "#fa9696" }
+  ]
+}
