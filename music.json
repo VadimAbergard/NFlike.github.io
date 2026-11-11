@@ -1,0 +1,28 @@
+{
+  "tracks": [
+    {
+      "title": "Hornet Adventure Theme",
+      "file": "music/welcome To Bellhard.wav",
+      "description": "Главная тема из игры Hornet Adventure. Синтезаторный ретро-бит.",
+      "download": "music/welcome To Bellhard.wav",
+      "date": "2023-10-30",
+      "tags": ["Ретро", "Саундтрек"]
+    },
+    {
+      "title": "Produce Box Factory - Beat 1",
+      "file": "music/beat1.mp3",
+      "description": "Экспериментальный трек, созданный в FL Studio за 3 часа.",
+      "download": "music/beat1.mp3",
+      "date": "2023-11-15",
+      "tags": ["Бит", "Эксперимент"]
+    },
+    {
+      "title": "Windows XP Remix",
+      "file": "music/xp_remix.mp3",
+      "description": "Легендарный звук запуска, но в стиле хардбасс.",
+      "download": "",
+      "date": "2023-09-01",
+      "tags": ["Мем", "Хардбасс"]
+    }
+  ]
+}

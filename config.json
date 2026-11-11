@@ -10,12 +10,26 @@
       "isEnabled": true,
       "children": [
         { "title": "Hornet Adventure", "content": "pages/hobbies.html", "isEnabled": false },
-        { "title": "Produce Box Factory", "content": "pages/music.html", "isEnabled": true }
+        { "title": "Produce Box Factory", "content": "pages/Produce Box Factory.html", "isEnabled": true }
       ]
     },
+    { "title": "> музыка", "content": "pages/music.html", "isEnabled": true },
     { "title": "spacer", "isEnabled": true }
   ],
   "taskbarLinks": [
-    { "title": "VK", "url": "https://vk.com/", "textColor": "#ffffff", "bgColor": "#2787F5" }
+    { 
+      "title": "Donation Alerts", 
+      "url": "https://example.com/", 
+      "textColor": "#574d40", 
+      "bgColor": "#ffc784",
+      "icon": "image/icon/donation_alerts.png"
+    },
+    { 
+      "title": "Youtube", 
+      "url": "https://www.youtube.com/@NFlikeMusik", 
+      "textColor": "#ffffff", 
+      "bgColor": "#fe0032",
+      "icon": "image/icon/youtube_music.png"
+    }
   ]
 }

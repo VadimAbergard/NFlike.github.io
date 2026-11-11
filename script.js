@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isChatInitialized = false; 
   let hasBotFinished = false;
 
-  // Глобальная переменная для хранения конфига
   window.appConfig = null;
 
   const soundClick = new Audio('sound/windows-xp-start.mp3');
@@ -62,13 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('chat.json').then(res => res.json()).catch(() => null)
   ])
   .then(async ([config, nConfig, cConfig]) => {
-    window.appConfig = config; // СОХРАНЯЕМ КОНФИГ ДЛЯ БЕГУЩЕЙ СТРОКИ
+    window.appConfig = config;
     
     renderSidebar(config.sidebarLinks);
     renderTaskbar(config.taskbarLinks);
     loadPage('pages/home.html'); 
 
-    // Загрузка уведомлений
     if (nConfig) {
       notifData = nConfig;
       for (let i = 0; i < notifData.notifications.length; i++) {
@@ -86,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (notifData.enabled) toggleNotifications(true);
     }
 
-    // Загрузка настроек чата и скрытие кнопки
     if (cConfig) {
       chatData = cConfig;
       if (chatData.enabled === false && chatBtn) {
@@ -239,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputField = document.getElementById('chat-input');
     const sendBtn = document.getElementById('chat-send-btn');
 
-    // ФУНКЦИЯ ОТПРАВКИ СООБЩЕНИЯ (БЕЗ РЕАКЦИИ БОТОВ)
     const sendUserMessage = () => {
       const text = inputField.value.trim();
       if (!text) return;
@@ -260,7 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
 
-    // АВТОМАТИЧЕСКИЕ СООБЩЕНИЯ ОТ БОТОВ (СЦЕНАРИЙ)
     const postBotMessage = () => {
       if (!document.getElementById('chat-window')) {
         clearInterval(chatIntervalId);
@@ -357,12 +352,13 @@ document.addEventListener("DOMContentLoaded", () => {
           contentArea.innerHTML = html;
           contentArea.style.display = 'block';
 
-          // Если загружена главная, запускаем бегущую строку и новости
           if (url.includes('home.html')) {
             setupMarquee();
             loadNews();
           }
-          // Если загружен чат, запускаем симуляцию
+          if (url.includes('music.html')) {
+            loadMusic();
+          }
           if (url.includes('chat.html')) {
             startChatSimulation();
           }
@@ -438,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return container;
   }
 
-  function renderTaskbar(links) {
+    function renderTaskbar(links) {
     const taskbar = document.querySelector('.taskbar');
     const rightBlock = document.querySelector('.taskbar-right');
     
@@ -449,8 +445,20 @@ document.addEventListener("DOMContentLoaded", () => {
       a.href = link.url;
       a.target = "_blank"; 
       a.className = `resource-btn ${link.class || ''}`;
-      a.textContent = link.title;
       
+      // Если есть иконка, добавляем её
+      if (link.icon) {
+        const img = document.createElement('img');
+        img.src = link.icon;
+        img.style.cssText = "width: 16px; height: 16px; margin-right: 5px; vertical-align: middle;";
+        a.appendChild(img);
+      }
+      
+      // Добавляем текст
+      const textNode = document.createTextNode(link.title);
+      a.appendChild(textNode);
+      
+      // Применяем цвета
       if (link.textColor) a.style.color = link.textColor;
       if (link.bgColor) {
         a.style.backgroundColor = link.bgColor;
@@ -506,14 +514,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const marqueeElement = document.getElementById('main-marquee');
     if (!marqueeElement) return;
 
-    // Если в конфиге есть массив сообщений
     if (window.appConfig && window.appConfig.marqueeMessages && window.appConfig.marqueeMessages.length > 0) {
       const messages = window.appConfig.marqueeMessages;
-      // Выбираем случайное
       const randomMsg = messages[Math.floor(Math.random() * messages.length)];
       marqueeElement.textContent = randomMsg;
     } else {
-      // Если конфига нет, ставим стандартный текст
       marqueeElement.textContent = ">>> Привет! Ты — наш тысячный посетитель! <<<";
     }
   }
@@ -547,7 +552,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           }
 
-          // Генерируем теги
           let tagsHtml = '';
           if (item.tags && item.tags.length > 0) {
             tagsHtml = `<div class="news-tags">
@@ -555,7 +559,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
           }
 
-          // Картинка
           const imgHtml = item.image 
             ? `<div class="news-img-wrapper"><img src="${item.image}" class="news-img" alt="${item.title}"></div>`
             : `<div class="news-img-wrapper" style="background:#ccc;"></div>`;
@@ -579,4 +582,158 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  // --- 12. ЗАГРУЗКА МУЗЫКИ С ФИЛЬТРАМИ ---
+  function loadMusic() {
+    const container = document.getElementById('music-container');
+    const tagsContainer = document.getElementById('tags-container');
+    const sortSelect = document.getElementById('sort-date');
+    if (!container) return;
+
+    fetch('music.json')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.tracks || data.tracks.length === 0) {
+          container.innerHTML = '<p>Пока нет доступных треков.</p>';
+          return;
+        }
+
+        let allTracks = data.tracks;
+        let activeTags = []; // Массив выбранных тегов
+
+        // 1. Собираем все уникальные теги
+        const allTags = new Set();
+        allTracks.forEach(t => {
+          if (t.tags) t.tags.forEach(tag => allTags.add(tag));
+        });
+
+        // 2. Рендерим кнопки тегов
+        if (tagsContainer) {
+          tagsContainer.innerHTML = '';
+          allTags.forEach(tag => {
+            const tagBtn = document.createElement('button');
+            tagBtn.className = 'btn90';
+            tagBtn.style.fontSize = '11px';
+            tagBtn.style.padding = '2px 8px';
+            tagBtn.textContent = tag;
+            
+            tagBtn.addEventListener('click', () => {
+              // Переключаем активность тега
+              if (activeTags.includes(tag)) {
+                activeTags = activeTags.filter(t => t !== tag);
+                tagBtn.style.borderColor = '#ffffff #808080 #808080 #ffffff'; // Сброс стиля
+                tagBtn.style.backgroundColor = '#d4d0c8';
+              } else {
+                activeTags.push(tag);
+                tagBtn.style.borderColor = '#808080 #ffffff #ffffff #808080'; // Эффект нажатия
+                tagBtn.style.backgroundColor = '#b0b0b0';
+              }
+              playSound(soundClick);
+              renderList();
+            });
+            tagsContainer.appendChild(tagBtn);
+          });
+        }
+
+        // 3. Функция рендера списка
+        function renderList() {
+          container.innerHTML = '<div class="music-list"></div>';
+          const list = container.querySelector('.music-list');
+
+          // Фильтрация
+          let filteredTracks = allTracks.filter(track => {
+            if (activeTags.length === 0) return true;
+            if (!track.tags) return false;
+            // Проверяем, есть ли хотя бы один из выбранных тегов у трека
+            return activeTags.some(tag => track.tags.includes(tag));
+          });
+
+          // Сортировка
+          const sortMode = sortSelect ? sortSelect.value : 'newest';
+          filteredTracks.sort((a, b) => {
+            const dateA = new Date(a.date || 0);
+            const dateB = new Date(b.date || 0);
+            return sortMode === 'newest' ? dateB - dateA : dateA - dateB;
+          });
+
+          if (filteredTracks.length === 0) {
+            list.innerHTML = '<p>По вашему запросу ничего не найдено.</p>';
+            return;
+          }
+
+          filteredTracks.forEach(track => {
+            const item = document.createElement('div');
+            item.className = 'music-item';
+
+            const downloadBtn = track.download 
+              ? `<a href="${track.download}" class="download-btn" download>Скачать</a>` 
+              : '';
+
+            // Генерируем бейджи тегов для трека
+            let trackTagsHtml = '';
+            if (track.tags && track.tags.length > 0) {
+              trackTagsHtml = `<div style="margin-top: 5px; display: flex; gap: 5px;">` + 
+                track.tags.map(t => `<span style="background: #d4d0c8; border: 1px solid #808080; font-size: 10px; padding: 1px 5px;">${t}</span>`).join('') +
+                `</div>`;
+            }
+
+            item.innerHTML = `
+              <div class="music-left-side">
+                <button class="play-btn" title="Воспроизвести"></button>
+                <div class="music-info">
+                  <div class="music-title">${track.title}</div>
+                  <div class="music-desc">${track.description}</div>
+                  ${trackTagsHtml}
+                </div>
+              </div>
+              <div class="music-controls">
+                ${downloadBtn}
+              </div>
+              <audio src="${track.file}" preload="none"></audio>
+            `;
+
+            list.appendChild(item);
+
+            const playBtn = item.querySelector('.play-btn');
+            const audio = item.querySelector('audio');
+
+            playBtn.addEventListener('click', () => {
+              const allAudios = document.querySelectorAll('.music-item audio');
+              allAudios.forEach(a => {
+                if (a !== audio) {
+                  a.pause();
+                  a.currentTime = 0;
+                  const otherBtn = a.closest('.music-item').querySelector('.play-btn');
+                  if (otherBtn) otherBtn.classList.remove('playing');
+                }
+              });
+
+              if (audio.paused) {
+                audio.play().catch(e => console.error("Ошибка воспроизведения:", e));
+                playBtn.classList.add('playing');
+              } else {
+                audio.pause();
+                audio.currentTime = 0;
+                playBtn.classList.remove('playing');
+              }
+            });
+
+            audio.addEventListener('ended', () => {
+              playBtn.classList.remove('playing');
+            });
+          });
+        }
+
+        // Вешаем событие на сортировку
+        if (sortSelect) {
+          sortSelect.addEventListener('change', renderList);
+        }
+
+        // Первоначальный рендер
+        renderList();
+      })
+      .catch(err => {
+        console.error('Ошибка загрузки музыки:', err);
+        container.innerHTML = '<p style="color:red;">Не удалось загрузить список треков.</p>';
+      });
+  }
 });

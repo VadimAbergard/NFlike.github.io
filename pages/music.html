@@ -1,0 +1,25 @@
+<h1>Моя музыка</h1>
+
+<!-- ПАНЕЛЬ ФИЛЬТРОВ -->
+<div class="music-filters" style="background: #ece9d8; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; padding: 10px; margin-bottom: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+  
+  <div>
+    <label style="font-weight: bold; font-size: 12px;">Сортировка:</label>
+    <select id="sort-date" class="btn90" style="padding: 2px;">
+      <option value="newest">Сначала новые</option>
+      <option value="oldest">Сначала старые</option>
+    </select>
+  </div>
+
+  <div>
+    <label style="font-weight: bold; font-size: 12px; margin-right: 5px;">Теги:</label>
+    <div id="tags-container" style="display: inline-flex; gap: 5px; flex-wrap: wrap;">
+      <!-- Теги будут сгенерированы через JS -->
+    </div>
+  </div>
+
+</div>
+
+<div id="music-container">
+  <p>Загрузка треков...</p>
+</div>

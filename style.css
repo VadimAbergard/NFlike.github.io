@@ -204,12 +204,11 @@ hr {
   z-index: 100;
 }
 
-/* Контейнер, который прижимается вправо */
 .taskbar-right {
-  margin-left: auto; /* Сдвигает всё содержимое вправо */
+  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 8px; /* Расстояние между кнопками и часами */
+  gap: 8px;
 }
 
 .resource-btn {
@@ -238,11 +237,10 @@ hr {
   background-color: var(--btn-bg) !important;
 }
 
-/* Кнопки управления (звук/уведомления) */
 .taskbar-controls {
   display: flex;
   gap: 4px;
-  margin: 0; /* Убрали лишние отступы */
+  margin: 0;
 }
 .ctrl-btn {
   width: 24px;
@@ -267,7 +265,6 @@ hr {
 }
 
 .clock {
-  /* Убрали margin-left: auto, так как теперь его задает .taskbar-right */
   background: #c0c0c0;
   border: 2px inset #ffffff;
   padding: 2px 8px;
@@ -463,10 +460,8 @@ hr {
 /* ========================================= */
 /* СТИЛИ ДЛЯ НОВОСТНЫХ БЛОКОВ (СЕТКА) */
 /* ========================================= */
-
 .news-grid {
   display: grid;
-  /* Сетка: карточки будут переноситься, минимальная ширина 220px */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 15px;
   margin-top: 15px;
@@ -475,12 +470,9 @@ hr {
 .news-card {
   display: flex;
   flex-direction: column;
-  background: #ece9d8; /* Светло-серый фон, как у панелей Windows */
-  
-  /* Классическая выпуклая рамка */
+  background: #ece9d8; 
   border: 2px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
-  
   cursor: pointer;
   text-decoration: none;
   color: #000;
@@ -488,7 +480,6 @@ hr {
   box-sizing: border-box;
 }
 
-/* Эффект нажатия при клике */
 .news-card:active {
   border-color: #808080 #ffffff #ffffff #808080;
   background: #d4d0c8;
@@ -496,11 +487,9 @@ hr {
 
 .news-img-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 9; /* Пропорции картинки */
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   margin-bottom: 10px;
-  
-  /* Вдавленная рамка для картинки */
   border: 2px solid;
   border-color: #808080 #ffffff #ffffff #808080;
   background: #ffffff;
@@ -516,10 +505,9 @@ hr {
 .news-info {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Чтобы дата всегда была внизу */
+  flex-grow: 1;
 }
 
-/* Теги (категории) */
 .news-tags {
   display: flex;
   flex-wrap: wrap;
@@ -537,17 +525,15 @@ hr {
   border-color: #ffffff #808080 #808080 #ffffff;
 }
 
-/* Заголовок новости */
 .news-title {
-  font-family: "Times New Roman", serif; /* Как заголовки на сайте */
+  font-family: "Times New Roman", serif;
   font-size: 16px;
   font-weight: bold;
-  color: #000080; /* Темно-синий, классический */
+  color: #000080;
   margin: 0 0 5px 0;
   line-height: 1.2;
 }
 
-/* Описание */
 .news-desc {
   font-family: "Tahoma", sans-serif;
   font-size: 12px;
@@ -557,61 +543,172 @@ hr {
   flex-grow: 1;
 }
 
-/* Дата */
 .news-date {
   font-family: "Tahoma", sans-serif;
   font-size: 11px;
   color: #808080;
-  border-top: 1px dotted #808080; /* Точечная линия, как в старых меню */
+  border-top: 1px dotted #808080;
   padding-top: 8px;
   margin-top: auto;
 }
 
+/* ========================================= */
+/* СТИЛИ ДЛЯ МУЗЫКАЛЬНОГО РАЗДЕЛА */
+/* ========================================= */
+.music-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  max-width: 800px; /* Ограничение ширины */
+}
+
+.music-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f0f0;
+  border: 1px solid #a0a0a0;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 0px #ffffff inset, -1px -1px 0px #a0a0a0 inset;
+}
+
+.music-left-side {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  overflow: hidden;
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.music-title {
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000080;
+  margin-bottom: 2px;
+}
+
+.music-desc {
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+  color: #555;
+}
+
+.music-controls {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* Идеально ровная кнопка Play */
+.play-btn {
+  width: 36px;
+  height: 36px;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.play-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: #c0c0c0;
+}
+
+/* Иконка Play (треугольник) */
+.play-btn:not(.playing)::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid #000080;
+  margin-left: 3px; /* Центрирование треугольника */
+}
+
+/* Иконка Stop (квадратик) */
+.play-btn.playing::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #000080;
+}
+
+/* Кнопка "Скачать" */
+.download-btn {
+  display: inline-block;
+  padding: 4px 30px;
+  background: #e0e0e0;
+  border: 1px solid #a0a0a0;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+  color: #0000ee;
+  font-family: "Tahoma", sans-serif;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.download-btn:active {
+  background: #d0d0d0;
+  box-shadow: inset -1px -1px 0px #ffffff, inset 1px 1px 0px #808080;
+  color: #ff0000;
+}
 
 /* ========================================= */
 /* ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (HOVER) */
 /* ========================================= */
-
-/* Верхние кнопки (ГЛАВНАЯ, ЧАТИК) */
 .home-btn:hover {
-  background: #e4e0d8; /* Чуть светлее */
-  color: #0000ee;      /* Текст становится синим (как ссылка) */
+  background: #e4e0d8;
+  color: #0000ee;
 }
-
-/* Кнопки в левом меню */
 .sidebar .btn90:hover {
   background: #e4e0d8;
 }
-
-/* Кнопки в нижней панели (VK, и т.д.) */
 .resource-btn:hover {
   background: #e4e0d8;
-  /* Если у кнопки есть кастомный фон, мы чуть его осветляем */
   filter: brightness(1.1); 
 }
-
-/* Кнопки управления (Звук, Уведомления) */
 .ctrl-btn:hover {
   background: #e4e0d8;
 }
-
-/* Карточки новостей на главной странице */
 .news-card:hover {
   background: #e4e0d8;
-  /* Легкое свечение рамки */
   box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #a0a0a0;
 }
 .news-card:hover .news-title {
-  color: #0000ee; /* Заголовок становится синим */
+  color: #0000ee;
   text-decoration: underline;
 }
-
-/* Ссылки внутри контента */
 .content-area a:hover {
-  background: #ffffcc; /* Легкая желтая подсветка, как выделение текста */
+  background: #ffffcc;
 }
-
-/* Кнопки внутри самого контента (например, "Написать мне") */
 .btn90:hover {
   background: #e4e0d8;
+}
+
+/* ========================================= */
+/* СТИЛИ ДЛЯ КНОПОК В ТАСКБАРЕ С ИКОНКАМИ */
+/* ========================================= */
+.resource-btn {
+  /* Flexbox отлично выравнивает картинку и текст по одной линии */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
