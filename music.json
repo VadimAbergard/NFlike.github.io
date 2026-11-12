@@ -1,28 +1,128 @@
 {
+  "tagDescriptions": {
+    "старое": "Архивные треки, созданные очень давно. Мои первые работы :D",
+    "ремикс": "Музыка в стиле 8-бит и старых синтезаторов.",
+    "8-бит": "8-битная музыка",
+    "обычная": "не 8-битная музыка",
+    "хорошие": "данные трэки довольно не плохо получились :)"
+  },
   "tracks": [
     {
-      "title": "Hornet Adventure Theme",
-      "file": "music/welcome To Bellhard.wav",
-      "description": "Главная тема из игры Hornet Adventure. Синтезаторный ретро-бит.",
-      "download": "music/welcome To Bellhard.wav",
-      "date": "2023-10-30",
-      "tags": ["Ретро", "Саундтрек"]
+      "title": "Carefully Spiders",
+      "file": "music/carefully spiders.mp3",
+      "description": "Старый трек.",
+      "download": "music/carefully spiders.mp3",
+      "date": "2023-05-23",
+      "tags": ["старое", "хорошие"],
+      "isEnabled": true
     },
     {
-      "title": "Produce Box Factory - Beat 1",
-      "file": "music/beat1.mp3",
-      "description": "Экспериментальный трек, созданный в FL Studio за 3 часа.",
-      "download": "music/beat1.mp3",
-      "date": "2023-11-15",
-      "tags": ["Бит", "Эксперимент"]
+      "title": "Crooked Mirror",
+      "file": "music/crooked mirror.mp3",
+      "description": "Старый трек.",
+      "download": "music/crooked mirror.mp3",
+      "date": "2023-07-13",
+      "tags": ["старое"],
+      "isEnabled": true
     },
     {
-      "title": "Windows XP Remix",
-      "file": "music/xp_remix.mp3",
-      "description": "Легендарный звук запуска, но в стиле хардбасс.",
-      "download": "",
-      "date": "2023-09-01",
-      "tags": ["Мем", "Хардбасс"]
+      "title": "Dark Crystal",
+      "file": "music/dark crystal.mp3",
+      "description": "Старый трек.",
+      "download": "music/dark crystal.mp3",
+      "date": "2023-07-13",
+      "tags": ["старое", "хорошие"],
+      "isEnabled": true
+    },
+    {
+      "title": "Flowers",
+      "file": "music/flowers.mp3",
+      "description": "Старый трек.",
+      "download": "music/flowers.mp3",
+      "date": "2023-11-25",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "I'm Downing",
+      "file": "music/i'm downing.mp3",
+      "description": "Старый трек.",
+      "download": "music/i'm downing.mp3",
+      "date": "2023-07-27",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "In The Forest",
+      "file": "music/in the forest.mp3",
+      "description": "Старый трек.",
+      "download": "music/in the forest.mp3",
+      "date": "2023-06-21",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Into The Bowels",
+      "file": "music/into the bowels.mp3",
+      "description": "Старый трек.",
+      "download": "music/into the bowels.mp3",
+      "date": "2023-07-30",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Let Me Think",
+      "file": "music/let me think.mp3",
+      "description": "Старый трек.",
+      "download": "music/let me think.mp3",
+      "date": "2023-05-23",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Purple Bricks",
+      "file": "music/Purple Bricks.mp3",
+      "description": "Старый трек.",
+      "download": "music/Purple Bricks.mp3",
+      "date": "2023-06-24",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Red Fabric",
+      "file": "music/red fabric.mp3",
+      "description": "Старый трек.",
+      "download": "music/red fabric.mp3",
+      "date": "2023-06-25",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Red Screen",
+      "file": "music/red scren.mp3",
+      "description": "Старый трек.",
+      "download": "music/red scren.mp3",
+      "date": "2023-07-23",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "The Best Day Ever",
+      "file": "music/the best day ever.mp3",
+      "description": "Главная тема.",
+      "download": "music/the best day ever.mp3",
+      "date": "2023-05-23",
+      "tags": ["старое"],
+      "isEnabled": true
+    },
+    {
+      "title": "Time To Run",
+      "file": "music/time to run.mp3",
+      "description": "Старый трек.",
+      "download": "music/time to run.mp3",
+      "date": "2023-08-04",
+      "tags": ["старое"],
+      "isEnabled": true
     }
   ]
 }

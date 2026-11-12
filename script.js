@@ -434,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return container;
   }
 
-    function renderTaskbar(links) {
+  function renderTaskbar(links) {
     const taskbar = document.querySelector('.taskbar');
     const rightBlock = document.querySelector('.taskbar-right');
     
@@ -446,7 +446,6 @@ document.addEventListener("DOMContentLoaded", () => {
       a.target = "_blank"; 
       a.className = `resource-btn ${link.class || ''}`;
       
-      // Если есть иконка, добавляем её
       if (link.icon) {
         const img = document.createElement('img');
         img.src = link.icon;
@@ -454,11 +453,9 @@ document.addEventListener("DOMContentLoaded", () => {
         a.appendChild(img);
       }
       
-      // Добавляем текст
       const textNode = document.createTextNode(link.title);
       a.appendChild(textNode);
       
-      // Применяем цвета
       if (link.textColor) a.style.color = link.textColor;
       if (link.bgColor) {
         a.style.backgroundColor = link.bgColor;
@@ -582,11 +579,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // --- 12. ЗАГРУЗКА МУЗЫКИ С ФИЛЬТРАМИ ---
+  // --- 12. ЗАГРУЗКА МУЗЫКИ С ФИЛЬТРАМИ И ГРОМКОСТЬЮ ---
   function loadMusic() {
     const container = document.getElementById('music-container');
     const tagsContainer = document.getElementById('tags-container');
     const sortSelect = document.getElementById('sort-date');
+    const tagDescContainer = document.getElementById('tag-descriptions-container');
+    const volumeSlider = document.getElementById('volume-slider');
+    
     if (!container) return;
 
     fetch('music.json')
@@ -597,16 +597,40 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        let allTracks = data.tracks;
-        let activeTags = []; // Массив выбранных тегов
+        // 1. УСТАНОВКА ГРОМКОСТИ
+        let savedVolume = localStorage.getItem('musicVolume');
+        if (savedVolume !== null) {
+          savedVolume = parseFloat(savedVolume);
+          if (volumeSlider) volumeSlider.value = savedVolume;
+        } else {
+          savedVolume = 0.25; 
+          if (volumeSlider) volumeSlider.value = savedVolume;
+        }
 
-        // 1. Собираем все уникальные теги
+        // 2. РЕНДЕР ОПИСАНИЙ ТЕГОВ
+        if (tagDescContainer && data.tagDescriptions) {
+          let descHtml = '';
+          for (const [tag, desc] of Object.entries(data.tagDescriptions)) {
+            descHtml += `<div style="font-size: 11px; margin-bottom: 3px; color: #444;"><b style="color: #000080;">[${tag}]:</b> ${desc}</div>`;
+          }
+          tagDescContainer.innerHTML = descHtml;
+        }
+
+        let allTracks = data.tracks.filter(track => track.isEnabled !== false);
+        if (allTracks.length === 0) {
+          container.innerHTML = '<p>Все треки временно отключены.</p>';
+          if (tagsContainer) tagsContainer.innerHTML = '';
+          return;
+        }
+
+        let activeTags = []; 
+
+        // 3. РЕНДЕР ТЕГОВ
         const allTags = new Set();
         allTracks.forEach(t => {
           if (t.tags) t.tags.forEach(tag => allTags.add(tag));
         });
 
-        // 2. Рендерим кнопки тегов
         if (tagsContainer) {
           tagsContainer.innerHTML = '';
           allTags.forEach(tag => {
@@ -617,14 +641,13 @@ document.addEventListener("DOMContentLoaded", () => {
             tagBtn.textContent = tag;
             
             tagBtn.addEventListener('click', () => {
-              // Переключаем активность тега
               if (activeTags.includes(tag)) {
                 activeTags = activeTags.filter(t => t !== tag);
-                tagBtn.style.borderColor = '#ffffff #808080 #808080 #ffffff'; // Сброс стиля
+                tagBtn.style.borderColor = '#ffffff #808080 #808080 #ffffff';
                 tagBtn.style.backgroundColor = '#d4d0c8';
               } else {
                 activeTags.push(tag);
-                tagBtn.style.borderColor = '#808080 #ffffff #ffffff #808080'; // Эффект нажатия
+                tagBtn.style.borderColor = '#808080 #ffffff #ffffff #808080';
                 tagBtn.style.backgroundColor = '#b0b0b0';
               }
               playSound(soundClick);
@@ -634,20 +657,27 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 
-        // 3. Функция рендера списка
+        // 4. ЛОГИКА ГРОМКОСТИ
+        if (volumeSlider) {
+          volumeSlider.addEventListener('input', (e) => {
+            const vol = parseFloat(e.target.value);
+            localStorage.setItem('musicVolume', vol);
+            const allAudios = document.querySelectorAll('.music-item audio');
+            allAudios.forEach(a => a.volume = vol);
+          });
+        }
+
+        // 5. РЕНДЕР СПИСКА ТРЕКОВ
         function renderList() {
           container.innerHTML = '<div class="music-list"></div>';
           const list = container.querySelector('.music-list');
 
-          // Фильтрация
           let filteredTracks = allTracks.filter(track => {
             if (activeTags.length === 0) return true;
             if (!track.tags) return false;
-            // Проверяем, есть ли хотя бы один из выбранных тегов у трека
             return activeTags.some(tag => track.tags.includes(tag));
           });
 
-          // Сортировка
           const sortMode = sortSelect ? sortSelect.value : 'newest';
           filteredTracks.sort((a, b) => {
             const dateA = new Date(a.date || 0);
@@ -668,7 +698,6 @@ document.addEventListener("DOMContentLoaded", () => {
               ? `<a href="${track.download}" class="download-btn" download>Скачать</a>` 
               : '';
 
-            // Генерируем бейджи тегов для трека
             let trackTagsHtml = '';
             if (track.tags && track.tags.length > 0) {
               trackTagsHtml = `<div style="margin-top: 5px; display: flex; gap: 5px;">` + 
@@ -677,17 +706,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             item.innerHTML = `
-              <div class="music-left-side">
+              <div class="music-top-row">
                 <button class="play-btn" title="Воспроизвести"></button>
                 <div class="music-info">
                   <div class="music-title">${track.title}</div>
                   <div class="music-desc">${track.description}</div>
                   ${trackTagsHtml}
                 </div>
+                <div class="music-controls">
+                  ${downloadBtn}
+                </div>
               </div>
-              <div class="music-controls">
-                ${downloadBtn}
+              
+              <div class="progress-container">
+                <span class="time-display current-time">00:00</span>
+                <input type="range" class="progress-bar" value="0" min="0" max="100" step="0.1">
+                <span class="time-display total-time">00:00</span>
               </div>
+              
               <audio src="${track.file}" preload="none"></audio>
             `;
 
@@ -695,8 +731,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const playBtn = item.querySelector('.play-btn');
             const audio = item.querySelector('audio');
+            const progressBar = item.querySelector('.progress-bar');
+            const currentTimeDisplay = item.querySelector('.current-time');
+            const totalTimeDisplay = item.querySelector('.total-time');
+            
+            audio.volume = savedVolume;
 
-            playBtn.addEventListener('click', () => {
+            const togglePlay = () => {
               const allAudios = document.querySelectorAll('.music-item audio');
               allAudios.forEach(a => {
                 if (a !== audio) {
@@ -715,6 +756,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 audio.currentTime = 0;
                 playBtn.classList.remove('playing');
               }
+            };
+
+            playBtn.addEventListener('click', togglePlay);
+
+            // ССЫЛКИ В ОПИСАНИИ
+            const playLinks = item.querySelectorAll('.play-link');
+            playLinks.forEach(link => {
+              link.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                if (audio.paused) {
+                  togglePlay();
+                  item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+              });
+            });
+
+            function formatTime(seconds) {
+              if (isNaN(seconds)) return "00:00";
+              const m = Math.floor(seconds / 60);
+              const s = Math.floor(seconds % 60);
+              return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+
+            audio.addEventListener('loadedmetadata', () => {
+              totalTimeDisplay.textContent = formatTime(audio.duration);
+            });
+
+            audio.addEventListener('timeupdate', () => {
+              if (!isNaN(audio.duration)) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = percent;
+                currentTimeDisplay.textContent = formatTime(audio.currentTime);
+              }
+            });
+
+            progressBar.addEventListener('input', () => {
+              if (!isNaN(audio.duration)) {
+                audio.currentTime = (progressBar.value / 100) * audio.duration;
+              }
             });
 
             audio.addEventListener('ended', () => {
@@ -723,12 +803,10 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 
-        // Вешаем событие на сортировку
         if (sortSelect) {
           sortSelect.addEventListener('change', renderList);
         }
 
-        // Первоначальный рендер
         renderList();
       })
       .catch(err => {

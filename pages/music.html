@@ -1,7 +1,10 @@
 <h1>Моя музыка</h1>
 
-<!-- ПАНЕЛЬ ФИЛЬТРОВ -->
-<div class="music-filters" style="background: #ece9d8; border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff; padding: 10px; margin-bottom: 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+<!-- Блок с описаниями тегов -->
+<div id="tag-descriptions-container" style="margin-bottom: 10px;"></div>
+
+<!-- ПАНЕЛЬ ФИЛЬТРОВ (Липкая) -->
+<div class="music-filters">
   
   <div>
     <label style="font-weight: bold; font-size: 12px;">Сортировка:</label>
@@ -11,9 +14,15 @@
     </select>
   </div>
 
-  <div>
-    <label style="font-weight: bold; font-size: 12px; margin-right: 5px;">Теги:</label>
-    <div id="tags-container" style="display: inline-flex; gap: 5px; flex-wrap: wrap;">
+  <!-- ПОЛЗУНОК ГРОМКОСТИ -->
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <label style="font-weight: bold; font-size: 12px;">🔊 Громкость:</label>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.25" style="width: 100px; cursor: pointer;">
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <label style="font-weight: bold; font-size: 12px;">Теги:</label>
+    <div id="tags-container" style="display: flex; gap: 5px; flex-wrap: wrap;">
       <!-- Теги будут сгенерированы через JS -->
     </div>
   </div>
