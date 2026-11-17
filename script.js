@@ -680,8 +680,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const sortMode = sortSelect ? sortSelect.value : 'newest';
           filteredTracks.sort((a, b) => {
-            const dateA = new Date(a.date || 0);
-            const dateB = new Date(b.date || 0);
+            // Превращаем строки "1", "2", "10" в реальные числа
+            const dateA = Number(a.date) || 0;
+            const dateB = Number(b.date) || 0;
+            
+            // Для 'newest' (Сначала новые) сортируем по убыванию (от 13 до 1)
+            // Для 'oldest' (Сначала старые) — по возрастанию (от 1 до 13)
             return sortMode === 'newest' ? dateB - dateA : dateA - dateB;
           });
 
